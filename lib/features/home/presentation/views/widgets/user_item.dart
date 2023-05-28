@@ -13,7 +13,7 @@ class UserItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        GoRouter.of(context).go(AppRouter.detailsView,extra: userModel);
+        GoRouter.of(context).push(AppRouter.detailsView,extra: userModel);
       },
       child: Padding(
         padding:

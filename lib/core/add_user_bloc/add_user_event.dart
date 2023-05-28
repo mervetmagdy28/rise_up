@@ -9,8 +9,7 @@ abstract class AddUserEvent extends Equatable {
 
 class LoadAddUserEvent extends AddUserEvent {
   final UserModel userModel;
-  final BuildContext context;
-  const LoadAddUserEvent(this.context, {required this.userModel});
+  const LoadAddUserEvent({required this.userModel});
   @override
   List<Object?> get props => [];
 }

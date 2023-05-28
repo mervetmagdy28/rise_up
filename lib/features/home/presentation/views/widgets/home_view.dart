@@ -9,9 +9,23 @@ import '../../../../../core/user_bloc/user_event.dart';
 import '../../../../../core/user_bloc/user_state.dart';
 
 
-class HomeBody extends StatelessWidget {
+class HomeBody extends StatefulWidget {
   const HomeBody({Key? key}) : super(key: key);
 
+  @override
+  State<HomeBody> createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends State<HomeBody> {
+
+  late Future<List<UserModel>> _futureAlbum;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _futureAlbum = ApiService().getUsers() ;
+  }
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -30,11 +44,16 @@ class HomeBody extends StatelessWidget {
           }
           if (state is SuccessUsersState) {
             List<UserModel> userList = state.users;
-            return ListView.builder(
-                itemCount: userList.length,
-                itemBuilder: (_, index) {
-                  return UserItem(userModel: userList[index]);
-                });
+            return FutureBuilder(
+              future:_futureAlbum ,
+              builder:(context , snapshot){
+                return ListView.builder(
+                  itemCount: userList.length,
+                  itemBuilder: (_, index) {
+                    return UserItem(userModel: userList[index]);
+                  });
+              }
+            );
           }
 
           return Container();

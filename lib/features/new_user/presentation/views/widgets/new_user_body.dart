@@ -8,7 +8,7 @@ import 'package:rise_up/core/utils/constants.dart';
 import '../../../../../core/add_user_bloc/add_user_bloc.dart';
 import '../../../../../core/add_user_bloc/add_user_event.dart';
 import '../../../../../core/utils/router.dart';
-import 'custom_text_form_field.dart';
+import '../../../../home/presentation/views/widgets/custom_text_field.dart';
 
 class NewUserBody extends StatefulWidget {
   NewUserBody({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class _NewUserBodyState extends State<NewUserBody> {
   TextEditingController email=TextEditingController();
 
   TextEditingController active=TextEditingController();
-  Widget sizedBox=const SizedBox(height: 20,);
+
   String gender = "female";
   String activation = "active";
   UserModel userModel=UserModel(email: 'email@example.com',gender: 'female',name: 'mervet',status: 'active');
@@ -34,23 +34,6 @@ class _NewUserBodyState extends State<NewUserBody> {
     return BlocBuilder<AddUserBloc,AddUserState>(
         builder: (context,state){
         if(state is SuccessAddUserState){
-          Alert(
-            context: context,
-            type: AlertType.success,
-            title: "Success",
-            desc: "user added successfully",
-            buttons: [
-              DialogButton(
-                onPressed: () => Navigator.pop(context),
-                width: 120,
-                child: const Text(
-                  "ok",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              )
-            ],
-          ).show();
-          return  NewUserBody();
         }if (state is LoadingAddUserState){
           return const Center(child: CircularProgressIndicator());
         }if (state is FailureAddUserState){
@@ -60,7 +43,7 @@ class _NewUserBodyState extends State<NewUserBody> {
         }, );
   }
   void postUser(context){
-    BlocProvider.of<AddUserBloc>(context).add(LoadAddUserEvent(context,userModel: userModel,));
+    BlocProvider.of<AddUserBloc>(context).add(LoadAddUserEvent(userModel: userModel,));
   }
   Widget InitalBody(){
     return ListView(
@@ -150,7 +133,7 @@ class _NewUserBodyState extends State<NewUserBody> {
                     ),
                     RadioListTile(
                       title: const Text("Inactive"),
-                      value: "Inactive",
+                      value: "inactive",
                       activeColor: kPrimaryColor,
                       groupValue: activation,
                       onChanged: (value){
@@ -168,7 +151,7 @@ class _NewUserBodyState extends State<NewUserBody> {
                  // postUser(context);
                   if (_key.currentState!.validate()) {
                     postUser(context);
-                      GoRouter.of(context).go(AppRouter.homeView);
+                      GoRouter.of(context).go(AppRouter.confirmUser);
                   }
                 },
                     style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(kPrimaryColor)),

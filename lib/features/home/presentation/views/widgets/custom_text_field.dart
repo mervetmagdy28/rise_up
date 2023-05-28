@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomEditTextFormField extends StatelessWidget {
-  const CustomEditTextFormField({Key? key, required this.controller, required this.validator, required this.hintText, this.obscureText=false, required this.labelText}) : super(key: key);
+class CustomTextFormField extends StatelessWidget {
+  const CustomTextFormField({Key? key, required this.controller, required this.validator, required this.hintText, this.obscureText=false, required this.labelText}) : super(key: key);
   final TextEditingController controller;
   final String? Function(String?) validator;
   final String hintText;
@@ -28,11 +28,11 @@ class CustomEditTextFormField extends StatelessWidget {
 
   OutlineInputBorder buildOutlineInputBorder() {
     return const OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-        borderSide:
-        BorderSide(
-          //color: kSecondColor,
-            width: 1),
-      );
+      borderRadius: BorderRadius.all(Radius.circular(15)),
+      borderSide:
+      BorderSide(
+        //color: kSecondColor,
+          width: 1),
+    );
   }
 }
